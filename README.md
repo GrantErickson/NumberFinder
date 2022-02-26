@@ -3,6 +3,11 @@ I love puzzles and wanted to find a general solution to number puzzles where cer
 
 Here is the puzzle I was trying to solve 
 (It came from the [365 Brain Puzzles calendar](https://www.amazon.com/Mensa-Brain-Puzzlers-Page-Calendar/dp/1523513241) January 6th, 2022):
+
+<img src="Puzzle.jpg" alt="Puzzle" width="400"/>
+
+### Summary Expressions
+
 1. Digits A, B, C, D, E, F, G, H, I, J are all unique
 2. A*B=CD
 3. B*C=DE
@@ -10,6 +15,7 @@ Here is the puzzle I was trying to solve
 5. B+G is even
 6. C+H is even
 7. C*E=I
+
 
 ## Input
 This is what the above constraints look like in code:
