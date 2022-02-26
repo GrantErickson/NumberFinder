@@ -17,15 +17,17 @@ namespace NumberFinder
             Function = function;
         }
 
-        public override bool Evaluate(IList<int> numbers)
+        public override ConstraintResult Evaluate(IList<int> numbers)
         {
-            bool result = true;
             foreach (var v in Variables)
             {
                 int number = EvaluateExpression(numbers, v);
-                result = result && Function(number);
+                if (!Function(number))
+                {
+                    return new ConstraintResult(false, v);
+                }
             }
-            return result;
+            return new ConstraintResult(true, "");
         }
     }
 }

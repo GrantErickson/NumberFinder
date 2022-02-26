@@ -2,7 +2,7 @@
 {
     public abstract class ConstraintBase
     {
-        public abstract bool Evaluate(IList<int> numbers);
+        public abstract ConstraintResult Evaluate(IList<int> numbers);
 
         private Dictionary<string, Func<int, int, int>> Operators = new()
         {

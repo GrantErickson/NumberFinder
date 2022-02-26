@@ -37,7 +37,8 @@ namespace NumberFinder
         {
             foreach (var constraint in constraints)
             {
-                if (!constraint.Evaluate(numbers)) return false;
+                var result = constraint.Evaluate(numbers);
+
             }
             return true;
         }

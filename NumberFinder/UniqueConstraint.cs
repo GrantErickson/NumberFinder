@@ -15,14 +15,22 @@ namespace NumberFinder
             Variables = variables.Split(",", StringSplitOptions.TrimEntries);
         }
 
-        public override bool Evaluate(IList<int> numbers)
+        public override ConstraintResult Evaluate(IList<int> numbers)
         {
-            List<int> digits = new();
+            Dictionary<int, string> digits = new();
             foreach (var v in Variables)
             {
-                digits.Add(EvaluateExpression(numbers, v));
+                var digit = EvaluateExpression(numbers, v);
+                if (digits.ContainsKey(digit))
+                {
+                    return new ConstraintResult(false, digits[digit] + v);
+                }
+                else
+                {
+                    digits.Add(digit, v);
+                }
             }
-            return digits.Distinct().Count() == digits.Count();
+            return new ConstraintResult(false);
         }
     }
 }
