@@ -8,11 +8,9 @@ namespace NumberFinder
 {
     public class UniqueConstraint : ConstraintBase
     {
-        public readonly IEnumerable<string> Variables;
-
         public UniqueConstraint(string variables)
         {
-            Variables = variables.Split(",", StringSplitOptions.TrimEntries);
+            Variables = variables.ToUpper().Split(",", StringSplitOptions.TrimEntries);
         }
 
         public override ConstraintResult Evaluate(IList<int> numbers)
@@ -30,7 +28,7 @@ namespace NumberFinder
                     digits.Add(digit, v);
                 }
             }
-            return new ConstraintResult(false);
+            return ConstraintResult.True;
         }
     }
 }

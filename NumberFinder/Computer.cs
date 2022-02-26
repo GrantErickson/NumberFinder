@@ -8,43 +8,100 @@ namespace NumberFinder
 {
     public class Computer
     {
-        private int UnknownCount;
-        public Computer(int unknownCount)
+        public Computer()
         {
-            UnknownCount = unknownCount;
         }
 
-        public List<int[]> Calculate()
+        public int Attempts = 0;
+
+
+        public Dictionary<string, int[]> Calculate()
         {
 
-            int[] numbers = new int[UnknownCount];
+            int[] numbers = new int[Unknowns.Length];
             //for (int i = 0; i < numbers.Length + 1; i++) numbers[i] = 0;
 
-            List<int[]> results = new();
+            Dictionary<string, int[]> results = new();
 
             CalculateRecursively(numbers, 0, results);
 
             return results;
         }
 
-        private void CalculateRecursively(int[] numbers, int unknownIndex, List<int[]> results)
+        private void CalculateRecursively(int[] numbers, int index, Dictionary<string, int[]> results)
         {
-            // TODO
-
+            Attempts++;
+            // Try all the values for this spot.
+            for (int x = numbers[index]; x < 10; x++)
+            {
+                numbers[index] = x;
+                var result = EvaluateNumbers(numbers);
+                if (result.Success) 
+                {
+                    // This result 
+                    var currentNumbers = string.Join(",", numbers);
+                    if (!results.ContainsKey(currentNumbers))
+                        results.Add(currentNumbers, numbers);
+                    Console.WriteLine($"{currentNumbers}:Works!");
+                }
+                else
+                {
+                    // This doesn't work, so start checking if the failing numbers can be adjusted
+                    if (Attempts % 100 == 0)
+                    {
+                        var currentNumbers = string.Join(",", numbers);
+                        Console.WriteLine($"{currentNumbers}:No {string.Join(",",result.EvaluatedChars)}");
+                    }
+                    foreach (var c in result.EvaluatedChars)
+                    {
+                        // Find the position of this number. 
+                        var cIndex = Unknowns.IndexOf(c);
+                        if (cIndex > index && numbers[cIndex] < 9)
+                        {
+                            // Create a new array to hold the new thing to try.
+                            var newNumbers = (int[])numbers.Clone();
+                            // Increment the area that didn't work and try recursively
+                            newNumbers[cIndex]++;
+                            CalculateRecursively(newNumbers, cIndex, results);
+                        }
+                    }
+                }
+            }
         }
 
-        private bool EvaluateNumbers(int[] numbers)
+        private ConstraintResult EvaluateNumbers(int[] numbers)
         {
             foreach (var constraint in constraints)
             {
                 var result = constraint.Evaluate(numbers);
-
+                if (!result.Success) return result;
             }
-            return true;
+            return ConstraintResult.True;
+        }
+
+        private string? unknowns = null;
+        public string Unknowns
+        {
+            get
+            {
+                if (unknowns == null)
+                {
+                    List<char> chars = new();
+                    foreach (var constraint in constraints)
+                    {
+                        foreach (var c in constraint.GetUnknowns())
+                        {
+                            if (!chars.Contains(c)) chars.Add(c);
+                        }
+                    }
+                    unknowns = string.Join("", chars.OrderBy(f => f));
+                }
+                return unknowns;
+            }
         }
 
 
-        private List<ConstraintBase> constraints = new();
+        private readonly List<ConstraintBase> constraints = new();
 
         public Computer Equal(string expression)
         {

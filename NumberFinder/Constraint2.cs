@@ -8,12 +8,11 @@ namespace NumberFinder
 {
     public class Constraint2 : ConstraintBase
     {
-        public readonly IEnumerable<string> Variables;
         public readonly Func<int, int, bool> Function;
 
         public Constraint2(string variables, Func<int, int, bool> function)
         {
-            Variables = variables.Split(",", StringSplitOptions.TrimEntries);
+            Variables = variables.ToUpper().Split(",", StringSplitOptions.TrimEntries);
             Function = function;
         }
 
@@ -35,11 +34,15 @@ namespace NumberFinder
                     {
                         return new ConstraintResult(false, lastVar + v);
                     }
+                    else
+                    {
+                        //Console.WriteLine($"{lastNumber.Value}=={number}");
+                    }
                     lastNumber = number; // Allow things to be chained a bit.
                     lastVar = v;
                 }
             }
-            return new ConstraintResult(true, "");
+            return ConstraintResult.True;
         }
     }
 }

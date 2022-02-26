@@ -131,5 +131,48 @@ namespace TestProject1
             Assert.AreEqual('C', c1.Evaluate(numbers).EvaluatedChars.First());
             Assert.AreEqual('D', c1.Evaluate(numbers).EvaluatedChars.Skip(1).First());
         }
+        [TestMethod]
+        public void GetUnknowns1()
+        {
+            var c1 = new NumberFinder.Constraint2("B+A,C,D", (a, b) => a == b);
+            Assert.AreEqual("ABCD", c1.GetUnknowns());
+        }
+        [TestMethod]
+        public void GetUnknowns2()
+        {
+            var c1 = new NumberFinder.Constraint1("B+A,C,D,D,E,A,B,D+E+F", (a) => a <= a+1);
+            Assert.AreEqual("ABCDEF", c1.GetUnknowns());
+        }
+
+        [TestMethod]
+        public void EqualNumber1()
+        {
+            var c1 = new NumberFinder.Constraint2("A+B,5", (a, b) => a == b);
+            List<int> numbers = new() { 1, 4 };
+            Assert.IsTrue(c1.Evaluate(numbers).Success);
+        }
+
+        [TestMethod]
+        public void EqualNumber1False()
+        {
+            var c1 = new NumberFinder.Constraint2("A+B,5", (a, b) => a == b);
+            List<int> numbers = new() { 1, 5 };
+            Assert.IsFalse(c1.Evaluate(numbers).Success);
+        }
+
+        [TestMethod]
+        public void EqualNumber2()
+        {
+            var c1 = new NumberFinder.Constraint2("A+B,15", (a, b) => a == b);
+            List<int> numbers = new() { 9,6 };
+            Assert.IsTrue(c1.Evaluate(numbers).Success);
+        }
+        [TestMethod]
+        public void EqualNumber2False()
+        {
+            var c1 = new NumberFinder.Constraint2("A+B,15", (a, b) => a == b);
+            List<int> numbers = new() { 9, 7 };
+            Assert.IsFalse(c1.Evaluate(numbers).Success);
+        }
     }
 }

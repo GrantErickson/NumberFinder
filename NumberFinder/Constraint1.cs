@@ -8,12 +8,11 @@ namespace NumberFinder
 {
     public class Constraint1 : ConstraintBase
     {
-        public readonly IEnumerable<string> Variables;
         public readonly Func<int, bool> Function;
 
         public Constraint1(string variables, Func<int, bool> function)
         {
-            Variables = variables.Split(",", StringSplitOptions.TrimEntries);
+            Variables = variables.ToUpper().Split(",", StringSplitOptions.TrimEntries);
             Function = function;
         }
 
@@ -27,7 +26,7 @@ namespace NumberFinder
                     return new ConstraintResult(false, v);
                 }
             }
-            return new ConstraintResult(true, "");
+            return ConstraintResult.True;
         }
     }
 }

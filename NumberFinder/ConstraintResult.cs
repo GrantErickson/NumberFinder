@@ -8,6 +8,8 @@ namespace NumberFinder
 {
     public class ConstraintResult
     {
+        public static readonly ConstraintResult True = new(true);
+
         public bool Success { get; }
         public IEnumerable<char> EvaluatedChars { get; }
 
@@ -17,7 +19,7 @@ namespace NumberFinder
             List<char> result = new();
             foreach (char c in expression)
             {
-                if (c >= 'A' && c <= 'Z')
+                if (c.IsLetter() && !result.Contains(c))
                 {
                     result.Add(c);
                 }
@@ -25,7 +27,7 @@ namespace NumberFinder
             EvaluatedChars = result;
         }
 
-        public ConstraintResult(bool success)
+        private ConstraintResult(bool success)
         {
             if (!success) throw new ArgumentException("This constructor can only be used for false results.");
             Success = success;

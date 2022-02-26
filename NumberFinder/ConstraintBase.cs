@@ -2,9 +2,24 @@
 {
     public abstract class ConstraintBase
     {
+        protected IEnumerable<string>? _variables = null;
+        protected IEnumerable<string> Variables
+        {
+            get
+            {
+                return _variables!;
+            }
+            set
+            {
+                _variables = value;
+            }
+
+
+        }
+
         public abstract ConstraintResult Evaluate(IList<int> numbers);
 
-        private Dictionary<string, Func<int, int, int>> Operators = new()
+        private readonly Dictionary<string, Func<int, int, int>> Operators = new()
         {
             { "+", (a, b) => a + b },
             { "-", (a, b) => a - b },
@@ -12,7 +27,7 @@
             { "/", (a, b) => (int)((double)a / (double)b) },
         };
 
-        private int GetNumber(IList<int> numbers, string v)
+        private static int GetNumber(IList<int> numbers, string v)
         {
             var number = 0.0;
             var power = v.Length - 1;
@@ -21,6 +36,11 @@
                 if (!int.TryParse(c.ToString(), out int digit))
                 {
                     digit = (numbers[(int)c - (int)'A']);
+                }
+                else
+                {
+                    // This is a number
+                    //Console.WriteLine(digit);
                 }
                 number = number + digit * Math.Pow(10, power);
                 power--;
@@ -81,6 +101,26 @@
                 }
             }
             return result;
+        }
+
+        /// <summary>
+        /// Returns a string of unknown variables in this constraint.
+        /// </summary>
+        /// <returns></returns>
+        public string GetUnknowns()
+        {
+            List<char> chars = new();
+            foreach (var v in Variables!)
+            {
+                foreach (var c in v)
+                {
+                    if (c.IsLetter())
+                    {
+                        if (!chars.Contains(c)) chars.Add(c);
+                    }
+                }
+            }
+            return string.Join("", chars.OrderBy(f => f));
         }
     }
 }
