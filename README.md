@@ -56,6 +56,9 @@ This turns out to be really hard with lots of constraints.
 ## Bugs Found
 1. There is something wrong with the logic in that if the unique constraint is put lower in the order than 3 it starts to return 0 results. More work is needed. I believe this is related to skipping too many items early on with constraints that use letters higher in the alphabet.
 
+## Areas for Improvement
+1. The Constraint classes parse the input clauses each time when they assess a set of values. This could be done a single time and then reused. While likely straitforward, this would require a somewhat complex function tree that holds the constraint and then accepts the array of values to evaluate.
+
 ## Another Example
 ```
 .Equal("8,A+B+C")
