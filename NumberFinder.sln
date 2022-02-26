@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NumberFinder", "NumberFinder\NumberFinder.csproj", "{45255A32-0B2B-4FC2-BD7D-7FEC58C28F6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NumberFinder.Tests", "TestProject1\NumberFinder.Tests.csproj", "{D87F3410-D491-4345-97A9-44407D74D10F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NumberFinder.Tests", "NumberFinder.Tests\NumberFinder.Tests.csproj", "{30415CE8-4186-4E15-BD65-BB28ECF94C88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{45255A32-0B2B-4FC2-BD7D-7FEC58C28F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45255A32-0B2B-4FC2-BD7D-7FEC58C28F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45255A32-0B2B-4FC2-BD7D-7FEC58C28F6B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D87F3410-D491-4345-97A9-44407D74D10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D87F3410-D491-4345-97A9-44407D74D10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D87F3410-D491-4345-97A9-44407D74D10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D87F3410-D491-4345-97A9-44407D74D10F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30415CE8-4186-4E15-BD65-BB28ECF94C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30415CE8-4186-4E15-BD65-BB28ECF94C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30415CE8-4186-4E15-BD65-BB28ECF94C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30415CE8-4186-4E15-BD65-BB28ECF94C88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
