@@ -53,6 +53,20 @@ This turns out to be really hard with lots of constraints.
 * If the unique constraint is the 3rd item it takes about 1700 tries to find it. 
 
 
-## Bugs 
-1. There is something wrong with the logic in that if the unique constraint is put lower in the order than 3 it starts to return 0 results. More work is needed.
+## Bugs Found
+1. There is something wrong with the logic in that if the unique constraint is put lower in the order than 3 it starts to return 0 results. More work is needed. I believe this is related to skipping too many items early on with constraints that use letters higher in the alphabet.
 
+## Another Example
+```
+.Equal("8,A+B+C")
+.Equal("10,A+D,B+E,C+F")
+.Equal("13,C+E")
+.Unique("A,B,C,D,E,F")
+
+Found: 1 results with 201 iterations
+A,B,C,D,E,F
+3,1,4,7,9,6
+```
+
+Again a huge difference in the order with the unique on top it took over 21,000 iterations.
+I also saw the bug in this one if the order wasn't right.
