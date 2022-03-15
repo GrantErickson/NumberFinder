@@ -79,3 +79,14 @@ A,B,C,D,E,F
 
 Again a huge difference in the order with the unique on top it took over 21,000 iterations.
 I also saw the bug in this one if the order wasn't right.
+
+## A Third Example
+Find unique numbers A and B where A9 * 7B = 4307.
+
+```
+.Unique("A,B")
+.Equal("A9*7B,4307")
+
+Found: 1 results with 11 iterations
+A,B
+5,3
