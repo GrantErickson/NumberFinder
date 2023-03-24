@@ -71,7 +71,7 @@ namespace NumberFinder
 
         private ConstraintResult EvaluateNumbers(int[] numbers)
         {
-            foreach (var constraint in constraints)
+            foreach (var constraint in Constraints)
             {
                 var result = constraint.Evaluate(numbers);
                 if (!result.Success) return result;
@@ -87,7 +87,7 @@ namespace NumberFinder
                 if (unknowns == null)
                 {
                     List<char> chars = new();
-                    foreach (var constraint in constraints)
+                    foreach (var constraint in Constraints)
                     {
                         foreach (var c in constraint.GetUnknowns())
                         {
@@ -101,11 +101,11 @@ namespace NumberFinder
         }
 
 
-        private readonly List<ConstraintBase> constraints = new();
+        private readonly List<ConstraintBase> Constraints = new();
 
         public Computer Equal(string expression)
         {
-            constraints.Add(new Constraint2(expression, (a, b) => a == b));
+            Constraints.Add(new Constraint2(expression, (a, b) => a == b));
             return this;
         }
         public Computer Value(string expression, int value)
@@ -115,17 +115,17 @@ namespace NumberFinder
         }
         public Computer Even(string expression)
         {
-            constraints.Add(new Constraint1(expression, a => a % 2 == 0));
+            Constraints.Add(new Constraint1(expression, a => a % 2 == 0));
             return this;
         }
         public Computer Odd(string expression)
         {
-            constraints.Add(new Constraint1(expression, a => a % 2 == 1));
+            Constraints.Add(new Constraint1(expression, a => a % 2 == 1));
             return this;
         }
         public Computer Unique(string expression)
         {
-            constraints.Add(new UniqueConstraint(expression));
+            Constraints.Add(new UniqueConstraint(expression));
             return this;
         }
 
