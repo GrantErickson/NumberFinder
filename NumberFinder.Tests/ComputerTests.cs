@@ -111,5 +111,16 @@ namespace TestProject1
             var results = c.Calculate();
             Assert.AreEqual(5, results.Count);
         }
+
+        [TestMethod]
+        public void ValidNumbers()
+        {
+            Computer c = new(new int[] {1,2,3,4,5,6});
+            c.Equal("A+B,C")
+             .Equal("2*B,A")
+             .Unique("A,B,C");
+             var results = c.Calculate();
+            Assert.AreEqual(2, results.Count);
+        }
     }
 }

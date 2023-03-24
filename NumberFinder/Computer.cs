@@ -8,17 +8,30 @@ namespace NumberFinder
 {
     public class Computer
     {
-        public Computer()
+        public Computer(int[]? validNumbers = null)
         {
+            if (validNumbers == null) validNumbers = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            ValidNumbers = validNumbers;    
         }
 
         public int Attempts = 0;
+        private int[] ValidNumbers;
 
 
         public Dictionary<string, int[]> Calculate()
         {
-
+            
             int[] numbers = new int[Unknowns.Length];
+
+            // Make sure 0 is a valid number, if not set the array to a different starting number
+            if (!ValidNumbers.Contains(0))
+            {
+                for(var index = 0; index < Unknowns.Length; index++)
+                {
+                    numbers[index] = ValidNumbers[0];
+                }
+            }
+
             //for (int i = 0; i < numbers.Length + 1; i++) numbers[i] = 0;
 
             Dictionary<string, int[]> results = new();
@@ -34,35 +47,38 @@ namespace NumberFinder
             // Try all the values for this spot.
             for (int x = numbers[index]; x < 10; x++)
             {
-                numbers[index] = x;
-                var result = EvaluateNumbers(numbers);
-                if (result.Success) 
+                if (ValidNumbers.Contains(x))
                 {
-                    // This result 
-                    var currentNumbers = string.Join(",", numbers);
-                    if (!results.ContainsKey(currentNumbers))
-                        results.Add(currentNumbers, numbers);
-                    Console.WriteLine($"{currentNumbers}:Works!");
-                }
-                else
-                {
-                    // This doesn't work, so start checking if the failing numbers can be adjusted
-                    if (Attempts % 100 == 0)
+                    numbers[index] = x;
+                    var result = EvaluateNumbers(numbers);
+                    if (result.Success)
                     {
+                        // This result 
                         var currentNumbers = string.Join(",", numbers);
-                        Console.WriteLine($"{currentNumbers}:No {string.Join(",",result.EvaluatedChars)}");
+                        if (!results.ContainsKey(currentNumbers))
+                            results.Add(currentNumbers, numbers);
+                        Console.WriteLine($"{currentNumbers}:Works!");
                     }
-                    foreach (var c in result.EvaluatedChars)
+                    else
                     {
-                        // Find the position of this number. 
-                        var cIndex = Unknowns.IndexOf(c);
-                        if (cIndex > index && numbers[cIndex] < 9)
+                        // This doesn't work, so start checking if the failing numbers can be adjusted
+                        if (Attempts % 100 == 0)
                         {
-                            // Create a new array to hold the new thing to try.
-                            var newNumbers = (int[])numbers.Clone();
-                            // Increment the area that didn't work and try recursively
-                            newNumbers[cIndex]++;
-                            CalculateRecursively(newNumbers, cIndex, results);
+                            var currentNumbers = string.Join(",", numbers);
+                            Console.WriteLine($"{currentNumbers}:No {string.Join(",", result.EvaluatedChars)}");
+                        }
+                        foreach (var c in result.EvaluatedChars)
+                        {
+                            // Find the position of this number. 
+                            var cIndex = Unknowns.IndexOf(c);
+                            if (cIndex > index && numbers[cIndex] < 9)
+                            {
+                                // Create a new array to hold the new thing to try.
+                                var newNumbers = (int[])numbers.Clone();
+                                // Increment the area that didn't work and try recursively
+                                newNumbers[cIndex]++;
+                                CalculateRecursively(newNumbers, cIndex, results);
+                            }
                         }
                     }
                 }
