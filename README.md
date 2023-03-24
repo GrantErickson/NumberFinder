@@ -90,3 +90,24 @@ Find unique numbers A and B where A9 * 7B = 4307.
 Found: 1 results with 11 iterations
 A,B
 5,3
+```
+
+## A Fourth Example
+I found this one as another puzzle that I wanted to use this to solve. It had a limited number of digits and didn't include 0 so I added the ability to constrain that.
+
+```
+Computer c = new(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+   c.Equal("A*B/C,4")
+    .Equal("D-E-F,2")
+    .Equal("G+H-I,6")
+    .Equal("A*D-G,6")
+    .Equal("B/E/H,1")
+    .Equal("C+F/I,1")
+    .Unique("A,B,C,D,E,F,G,H,I")
+   
+Found: 1 results with 80560 iterations
+A,B,C,D,E,F,G,H,I
+3,8,6,5,2,1,9,4,7
+```
+
+<img src="puzzle4.jpg" alt="Puzzle 4" width="400"/>
