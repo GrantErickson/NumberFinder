@@ -65,7 +65,7 @@ namespace NumberFinder
                         if (Attempts % 100 == 0)
                         {
                             var currentNumbers = string.Join(",", numbers);
-                            Console.WriteLine($"{currentNumbers}:No {string.Join(",", result.EvaluatedChars)}");
+                            Console.WriteLine($"{currentNumbers}:No {string.Join(",", result.HumanExpression)}");
                         }
                         foreach (var c in result.EvaluatedChars)
                         {
@@ -121,7 +121,7 @@ namespace NumberFinder
 
         public Computer Equal(string expression)
         {
-            Constraints.Add(new Constraint2(expression, (a, b) => a == b));
+            Constraints.Add(new Constraint2(expression, (a, b) => a == b, "Equal"));
             return this;
         }
         public Computer Value(string expression, int value)
@@ -131,12 +131,12 @@ namespace NumberFinder
         }
         public Computer Even(string expression)
         {
-            Constraints.Add(new Constraint1(expression, a => a % 2 == 0));
+            Constraints.Add(new Constraint1(expression, a => a % 2 == 0, "Even"));
             return this;
         }
         public Computer Odd(string expression)
         {
-            Constraints.Add(new Constraint1(expression, a => a % 2 == 1));
+            Constraints.Add(new Constraint1(expression, a => a % 2 == 1, "Odd"));
             return this;
         }
         public Computer Unique(string expression)

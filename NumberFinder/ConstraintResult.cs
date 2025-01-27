@@ -12,9 +12,11 @@ namespace NumberFinder
 
         public bool Success { get; }
         public IEnumerable<char> EvaluatedChars { get; }
+        public string HumanExpression { get; }
 
-        public ConstraintResult(bool success, string expression)
+        public ConstraintResult(bool success, string expression, string humanExpression)
         {
+            HumanExpression = humanExpression;
             Success = success;
             List<char> result = new();
             foreach (char c in expression)

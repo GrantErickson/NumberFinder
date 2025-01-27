@@ -9,11 +9,13 @@ namespace NumberFinder
     public class Constraint2 : ConstraintBase
     {
         public readonly Func<int, int, bool> Function;
+        public readonly string Text;
 
-        public Constraint2(string variables, Func<int, int, bool> function)
+        public Constraint2(string variables, Func<int, int, bool> function, string text)
         {
             Variables = variables.ToUpper().Split(",", StringSplitOptions.TrimEntries);
             Function = function;
+            Text = text;
         }
 
         public override ConstraintResult Evaluate(IList<int> numbers)
@@ -32,7 +34,7 @@ namespace NumberFinder
                     int number = EvaluateExpression(numbers, v);
                     if (!Function(lastNumber.Value, number))
                     {
-                        return new ConstraintResult(false, lastVar + v);
+                        return new ConstraintResult(false, lastVar + v, Text + "(" + string.Join(", ", Variables) + ")");
                     }
                     else
                     {

@@ -19,6 +19,7 @@
 
 //Specific problem
 // Make sure this list is sorted from smallest to largest
+// The order does matter. The logic is weak so make sure to change the order if things don't work.
 Computer c = new(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 c
     .Equal("A*B/C,4")
@@ -29,6 +30,16 @@ c
     .Equal("C+F/I,1")
     .Unique("A,B,C,D,E,F,G,H,I")
 ;
+
+// Example from Dec 2nd 2021
+//Computer c = new(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 });
+//c
+//    .Unique("A,B,C,D,E,F")
+//    .Equal("A+1,E")
+//    .Equal("D,A-4")
+//    .Equal("A+C,F")
+//    .Equal("A+B+C+D+E+F,24")
+//;
 
 
 var results = c.Calculate();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NumberFinder
 {
@@ -21,7 +22,7 @@ namespace NumberFinder
                 var digit = EvaluateExpression(numbers, v);
                 if (digits.ContainsKey(digit))
                 {
-                    return new ConstraintResult(false, digits[digit] + v);
+                    return new ConstraintResult(false, digits[digit] + v, "Unique(" + string.Join(", ", Variables) + ")");
                 }
                 else
                 {
